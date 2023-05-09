@@ -58,4 +58,15 @@ public class UserService {
 		} else
 			throw new EntityNotFoundException("utente con quell id non esiste");
 	}
+	
+
+
+
+	public User editUtente(User u) {
+		if (!repo.existsById(u.getId())) {
+			throw new EntityNotFoundException("Nessun utente trovato");
+		}
+		return repo.save(u);
+	}
+
 }

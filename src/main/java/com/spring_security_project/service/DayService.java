@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 
 import com.spring_security_project.model.Day;
+import com.spring_security_project.model.Dream;
 import com.spring_security_project.repository.DayRepository;
 
 import jakarta.persistence.EntityNotFoundException;
@@ -41,6 +42,19 @@ public class DayService {
 		}
 		repo.deleteById(id);
 		return "giorno eliminato";
+	}
+
+	public String addDay(Day d) {
+
+		repo.save(d);
+		return "Giorno aggiunto";
+	}
+
+	public Day editDay(Day d) {
+		if (!repo.existsById(d.getId())) {
+			throw new EntityNotFoundException("Nessun sogno trovato");
+		}
+		return repo.save(d);
 	}
 
 }
