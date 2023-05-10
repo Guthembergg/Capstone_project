@@ -4,6 +4,8 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Set;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.spring_security_project.auth.entity.Role;
 import com.spring_security_project.auth.entity.User;
 
@@ -44,7 +46,35 @@ public class Day {
     @Column
     private String day_recap;
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
+    @JsonIgnore
     private User user;
     @OneToMany(cascade = CascadeType.MERGE, mappedBy = "day")
     private List<Dream> dreams;
+	public Day(LocalDate date, int score, int sleep_hours, String day_recap, User user, List<Dream> dreams) {
+		super();
+		this.date = date;
+		this.score = score;
+		this.sleep_hours = sleep_hours;
+		this.day_recap = day_recap;
+		this.user = user;
+		this.dreams = dreams;
+		this.dreams.forEach(e->e.setDay(this));
+	}
+	public Day(LocalDate date, int score, int sleep_hours, String day_recap, List<Dream> dreams) {
+		super();
+		this.date = date;
+		this.score = score;
+		this.sleep_hours = sleep_hours;
+		this.day_recap = day_recap;
+		this.dreams = dreams;
+		this.dreams.forEach(e->e.setDay(this));
+	}
+	public Day(LocalDate date, int score, int sleep_hours, String day_recap) {
+		super();
+		this.date = date;
+		this.score = score;
+		this.sleep_hours = sleep_hours;
+		this.day_recap = day_recap;
+	}
+    
 }

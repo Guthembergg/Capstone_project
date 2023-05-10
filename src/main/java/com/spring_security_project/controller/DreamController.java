@@ -46,15 +46,15 @@ public class DreamController {
 			return new ResponseEntity<String>(e.getMessage(), HttpStatus.FOUND);
 		}
 	}
-	@GetMapping("users/{id}")
-	@PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
-	public ResponseEntity<?> trovaSognobyuserid(@PathVariable Long id){
-		try {
-			return new ResponseEntity<>(service.findDreamByUserID(id), HttpStatus.OK);
-		} catch(Exception e) {
-			return new ResponseEntity<String>(e.getMessage(), HttpStatus.FOUND);
-		}
-	}
+//	@GetMapping("users/{id}")
+//	@PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
+//	public ResponseEntity<?> trovaSognobyuserid(@PathVariable Long id){
+//		try {
+//			return new ResponseEntity<>(service.findDreamByUserID(id), HttpStatus.OK);
+//		} catch(Exception e) {
+//			return new ResponseEntity<String>(e.getMessage(), HttpStatus.FOUND);
+//		}
+//	}
 	@PutMapping("/{id}")
 	@PreAuthorize("hasRole('ADMIN')or hasRole('USER') ")
 	public ResponseEntity<?> modificaSogno(@RequestBody Dream c, @PathVariable Long id){

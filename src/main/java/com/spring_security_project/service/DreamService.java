@@ -80,10 +80,10 @@ public class DreamService {
 			
 	}
 	
-	public List<Dream> findDreamByUserID(Long id) {
-		if (!repoU.existsById(id)) {
-			throw new EntityNotFoundException("Nessun utente trovato");
-		}
-		return repo.findDreamByUserID(id);
-	}
+//	public List<Dream> findDreamByUserID(Long id) {
+//		if (!repoU.existsById(id)) {
+//			throw new EntityNotFoundException("Nessun utente trovato");
+//		}
+//		return repo.findDreamByUser(repoU.findById(id).get());
+//	}
 }

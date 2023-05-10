@@ -1,5 +1,7 @@
 package com.spring_security_project.controller;
 
+import java.time.LocalDate;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -40,12 +42,49 @@ public class DayController {
 			return new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
 		}
 	}
+	@PostMapping("username/{username}")
+	@PreAuthorize("hasRole('USER')or hasRole('ADMIN')")
+	public ResponseEntity<?> registraGiorni(@RequestBody Day c,@PathVariable String username){
+		try {
+			return new ResponseEntity<Day>(serviceU.associaGiornoUtenteUsername(username, c), HttpStatus.CREATED);			
+		} catch(Exception e) {
+			return new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
+		}
+	}
+	
+	@GetMapping("username/{username}")
+	@PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
+	public ResponseEntity<?> trovaGiornibyUsername(@PathVariable String username){
+		try {
+			return new ResponseEntity<>(service.findAllbyUsername(username), HttpStatus.OK);
+		} catch(Exception e) {
+			return new ResponseEntity<String>(e.getMessage(), HttpStatus.FOUND);
+		}
+	}
+	@GetMapping("username/{username}/{date}")
+	@PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
+	public ResponseEntity<?> trovaGiornibyUsernameandDate(@PathVariable String username,LocalDate date){
+		try {
+			return new ResponseEntity<>(service.findDayByDateandUsername(date, username), HttpStatus.OK);
+		} catch(Exception e) {
+			return new ResponseEntity<String>(e.getMessage(), HttpStatus.FOUND);
+		}
+	}
 	
 	@GetMapping("/{id}")
 	@PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
 	public ResponseEntity<?> trovaGiorni(@PathVariable Long id){
 		try {
 			return new ResponseEntity<>(service.findById(id), HttpStatus.OK);
+		} catch(Exception e) {
+			return new ResponseEntity<String>(e.getMessage(), HttpStatus.FOUND);
+		}
+	}
+	@GetMapping("user/{id}")
+	@PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
+	public ResponseEntity<?> trovaGiorniByUser(@PathVariable Long id){
+		try {
+			return new ResponseEntity<>(service.findDayByUserID(id), HttpStatus.OK);
 		} catch(Exception e) {
 			return new ResponseEntity<String>(e.getMessage(), HttpStatus.FOUND);
 		}

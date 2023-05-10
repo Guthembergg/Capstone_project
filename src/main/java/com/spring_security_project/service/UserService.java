@@ -59,7 +59,19 @@ public class UserService {
 			throw new EntityNotFoundException("utente con quell id non esiste");
 	}
 	
-
+	public Day associaGiornoUtenteUsername(String username, Day day) {
+		
+		if (repo.existsByUsername(username)) {
+			User u= repo.findByUsername(username).get();
+			u.getDays().add(day);
+			day.setUser(u);
+			repo.save(u);
+			
+			return repoD.save(day);
+		} else
+			throw new EntityNotFoundException("utente con quell id non esiste");
+	}
+	
 
 
 	public User editUtente(User u) {

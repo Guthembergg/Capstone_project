@@ -7,9 +7,10 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.PagingAndSortingRepository;
 
+import com.spring_security_project.auth.entity.User;
 import com.spring_security_project.model.Dream;
 
 public interface DreamRepository extends JpaRepository<Dream, Long>, PagingAndSortingRepository<Dream, Long> {
-	@Query("SELECT d FROM Dream d WHERE c.day.user.id = :id ")
-	 List<Dream> findDreamByUserID(Long id);
+	 //List<Dream> findDreamByUser(User u);
+	
 }
