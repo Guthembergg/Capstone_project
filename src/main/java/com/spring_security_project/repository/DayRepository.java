@@ -15,5 +15,5 @@ public interface DayRepository extends JpaRepository<Day, Long>, PagingAndSortin
 	 List<Day> findDayByUser(User u);
 	 @Query("SELECT c FROM Day c WHERE c.user.username = :username")
 	 List<Day> findDayByUsername(String username);
-	List<Day> findByDateAndUsername(LocalDate date, String username);
+	//List<Day> findByDateAndUsername(LocalDate date, String username);
 }

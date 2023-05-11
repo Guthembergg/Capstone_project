@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -20,7 +21,7 @@ import com.spring_security_project.model.Dream;
 import com.spring_security_project.service.DayService;
 import com.spring_security_project.service.DreamService;
 import com.spring_security_project.service.UserService;
-
+@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/days")
 public class DayController {
@@ -61,15 +62,15 @@ public class DayController {
 			return new ResponseEntity<String>(e.getMessage(), HttpStatus.FOUND);
 		}
 	}
-	@GetMapping("username/{username}/{date}")
-	@PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
-	public ResponseEntity<?> trovaGiornibyUsernameandDate(@PathVariable String username,LocalDate date){
-		try {
-			return new ResponseEntity<>(service.findDayByDateandUsername(date, username), HttpStatus.OK);
-		} catch(Exception e) {
-			return new ResponseEntity<String>(e.getMessage(), HttpStatus.FOUND);
-		}
-	}
+//	@GetMapping("username/{username}/{date}")
+//	@PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
+//	public ResponseEntity<?> trovaGiornibyUsernameandDate(@PathVariable String username,LocalDate date){
+//		try {
+//			return new ResponseEntity<>(service.findDayByDateandUsername(date, username), HttpStatus.OK);
+//		} catch(Exception e) {
+//			return new ResponseEntity<String>(e.getMessage(), HttpStatus.FOUND);
+//		}
+//	}
 	
 	@GetMapping("/{id}")
 	@PreAuthorize("hasRole('USER') or hasRole('ADMIN')")

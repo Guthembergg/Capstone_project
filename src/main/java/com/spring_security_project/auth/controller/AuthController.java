@@ -5,6 +5,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -17,7 +18,7 @@ import com.spring_security_project.auth.payload.LoginDto;
 import com.spring_security_project.auth.payload.RegisterDto;
 import com.spring_security_project.auth.repository.UserRepository;
 import com.spring_security_project.auth.service.AuthService;
-
+@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/api/auth")
 public class AuthController {
@@ -46,7 +47,7 @@ UserRepository repo;
 	@PostMapping(value = { "/register", "/signup" })
 	public ResponseEntity<String> register(@RequestBody RegisterDto registerDto) {
 		String response = authService.register(registerDto);
-		return new ResponseEntity<>(response, HttpStatus.CREATED);
+		return new ResponseEntity<>(response, HttpStatus.OK);
 	}
 
 	@GetMapping("/profile")

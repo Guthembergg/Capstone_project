@@ -72,11 +72,11 @@ public class DayService {
 		}
 		return repo.findDayByUser(repoU.findById(id).get());
 	}
-	public List<Day> findDayByDateandUsername(LocalDate date, String username) {
-		if (repoU.findByUsername(username).isEmpty()) {
-			throw new EntityNotFoundException("Nessun utente trovato");
-		}
-		return repo.findByDateAndUsername(date, username);
-	}
+//	public List<Day> findDayByDateandUsername(LocalDate date, String username) {
+//		if (repoU.findByUsername(username).isEmpty()) {
+//			throw new EntityNotFoundException("Nessun utente trovato");
+//		}
+//		return repo.findByDateAndUsername(date, username);
+//	}
 
 }
