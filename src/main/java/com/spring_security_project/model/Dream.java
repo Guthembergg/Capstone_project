@@ -43,7 +43,7 @@ public class Dream {
     @Column(nullable = false)
     private String text;
     @Column(nullable = false)
-    private Date date;
+    private LocalDate date;
     @Column
     private Double time;
     @Column()
