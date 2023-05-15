@@ -13,8 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.spring_security_project.auth.entity.User;
-import com.spring_security_project.model.Day;
-import com.spring_security_project.service.DayService;
+
 import com.spring_security_project.service.UserService;
 @CrossOrigin(origins = "*")
 @RestController

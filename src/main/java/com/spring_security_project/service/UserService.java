@@ -9,9 +9,10 @@ import org.springframework.stereotype.Service;
 
 import com.spring_security_project.auth.entity.User;
 import com.spring_security_project.auth.repository.UserRepository;
-import com.spring_security_project.model.Day;
+
 import com.spring_security_project.model.Dream;
-import com.spring_security_project.repository.DayRepository;
+
+import com.spring_security_project.repository.DreamRepository;
 
 import jakarta.persistence.EntityNotFoundException;
 
@@ -21,7 +22,7 @@ public class UserService {
 	@Autowired
 	UserRepository repo;
 	@Autowired
-	DayRepository repoD;
+	DreamRepository repoD;
 
 	public List<User> findAllUsers() {
 
@@ -47,27 +48,27 @@ public class UserService {
 		repo.deleteById(id);
 		return "utente eliminato";
 	}
-	public Day associaGiornoUtente(Long id, Day day) {
+	public Dream associaSognoUtente(Long id, Dream dream) {
 		if (repo.existsById(id)) {
 			User u = repo.findById(id).get();
-			u.getDays().add(day);
-			day.setUser(u);
+			u.getDreams().add(dream);
+			dream.setUser(u);
 			repo.save(u);
 			
-			return repoD.save(day);
+			return repoD.save(dream);
 		} else
 			throw new EntityNotFoundException("utente con quell id non esiste");
 	}
 	
-	public Day associaGiornoUtenteUsername(String username, Day day) {
+	public Dream associaSognoUtenteUsername(String username, Dream dream) {
 		
 		if (repo.existsByUsername(username)) {
 			User u= repo.findByUsername(username).get();
-			u.getDays().add(day);
-			day.setUser(u);
+			u.getDreams().add(dream);
+			dream.setUser(u);
 			repo.save(u);
 			
-			return repoD.save(day);
+			return repoD.save(dream);
 		} else
 			throw new EntityNotFoundException("utente con quell id non esiste");
 	}

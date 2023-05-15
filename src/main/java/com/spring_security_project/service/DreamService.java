@@ -1,18 +1,21 @@
 package com.spring_security_project.service;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.spring_security_project.auth.entity.User;
 import com.spring_security_project.auth.repository.UserRepository;
-import com.spring_security_project.model.Day;
+
 import com.spring_security_project.model.Dream;
-import com.spring_security_project.repository.DayRepository;
+
 import com.spring_security_project.repository.DreamRepository;
 
 import jakarta.persistence.EntityExistsException;
@@ -24,12 +27,17 @@ public class DreamService {
 	DreamRepository repo;
 	@Autowired
 	UserRepository repoU;
-	@Autowired
-	DayRepository repoD;
 
 	public List<Dream> findAllDream() {
 
 		return repo.findAll();
+	}
+
+	public List<Dream> findAllbyUsername(String username) {
+		if (repo.findDreamByUsername(username).isEmpty()) {
+			throw new EntityNotFoundException("Nessun sogno associato a questo username");
+		}
+		return repo.findDreamByUsername(username);
 	}
 
 	public Page<Dream> getAllDreamPageable(Pageable pageable) {
@@ -67,23 +75,22 @@ public class DreamService {
 		return repo.save(dream);
 	}
 
-	public Dream associaSognoGiorno(Long id, Dream dream) {
-		if (repoD.existsById(id)) {
-			Day d = repoD.findById(id).get();
-			d.getDreams().add(dream);
-			dream.setDay(d);
-			
-			repoD.save(d);
-			return repo.save(dream);
-		} else throw new EntityNotFoundException("giorno con quel id non trovato");
+	public Page<Dream> findAllbyUsernamePageable(String username, Integer pageNo, Integer pageSize, String sortBy) {
 
-			
+		Pageable paging = PageRequest.of(pageNo, pageSize, Sort.by(sortBy));
+		Page<Dream> pagedResult = repo.findDreamsByUser(username, paging);
+
+		if (pagedResult.hasContent()) {
+			return pagedResult;
+		} else {
+			throw new EntityNotFoundException("Nessun sogno trovato");
+		}
 	}
-	
+}
+
 //	public List<Dream> findDreamByUserID(Long id) {
 //		if (!repoU.existsById(id)) {
 //			throw new EntityNotFoundException("Nessun utente trovato");
 //		}
 //		return repo.findDreamByUser(repoU.findById(id).get());
 //	}
-}

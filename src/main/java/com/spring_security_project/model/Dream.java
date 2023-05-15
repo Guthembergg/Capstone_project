@@ -1,5 +1,6 @@
 package com.spring_security_project.model;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -7,6 +8,7 @@ import java.util.Set;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.spring_security_project.auth.entity.Role;
+import com.spring_security_project.auth.entity.User;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -39,6 +41,8 @@ public class Dream {
     private Long id;
     @Column(nullable = false)
     private String text;
+    @Column(nullable = false)
+    private LocalDate date;
     @Column
     private Double time;
     @Column()
@@ -49,14 +53,14 @@ public class Dream {
     private List<DreamType> type= new ArrayList<>();
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
     @JsonIgnore
-    private Day day;
-	public Dream(String text, Double time, List<Emotions> emotions, List<DreamType> type, Day day) {
+    private User user;
+	public Dream(String text, Double time, List<Emotions> emotions, List<DreamType> type, User user) {
 		super();
 		this.text = text;
 		this.time = time;
 		this.emotions = emotions;
 		this.type = type;
-		this.day = day;
+		this.user = user;
 	}
 	public Dream(String text, Double time, List<Emotions> emotions, List<DreamType> type) {
 		super();

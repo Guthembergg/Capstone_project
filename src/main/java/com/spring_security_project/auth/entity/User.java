@@ -11,7 +11,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import com.spring_security_project.model.Day;
+
 import com.spring_security_project.model.Dream;
 
 
@@ -43,5 +43,5 @@ public class User {
     )
     private Set<Role> roles = new HashSet<>();
     @OneToMany(cascade = CascadeType.MERGE, mappedBy = "user" )
-    private List<Day> days;
+    private List<Dream> dreams;
 }
