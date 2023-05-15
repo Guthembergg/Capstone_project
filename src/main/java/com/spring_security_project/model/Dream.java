@@ -1,5 +1,6 @@
 package com.spring_security_project.model;
 
+import java.sql.Date;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -42,7 +43,7 @@ public class Dream {
     @Column(nullable = false)
     private String text;
     @Column(nullable = false)
-    private LocalDate date;
+    private Date date;
     @Column
     private Double time;
     @Column()
