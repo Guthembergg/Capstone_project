@@ -66,7 +66,7 @@ public class UserService {
 			User u= repo.findByUsername(username).get();
 			u.getDreams().add(dream);
 			dream.setUser(u);
-			repo.save(u);
+			
 			
 			return repoD.save(dream);
 		} else

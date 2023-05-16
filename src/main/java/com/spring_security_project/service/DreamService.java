@@ -77,7 +77,7 @@ public class DreamService {
 
 	public Page<Dream> findAllbyUsernamePageable(String username, Integer pageNo, Integer pageSize, String sortBy) {
 
-		Pageable paging = PageRequest.of(pageNo, pageSize, Sort.by(sortBy));
+		Pageable paging = PageRequest.of(pageNo, pageSize, Sort.by(sortBy).descending());
 		Page<Dream> pagedResult = repo.findDreamsByUser(username, paging);
 
 		if (pagedResult.hasContent()) {

@@ -40,7 +40,9 @@ public class Dream {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(nullable = false)
+    @Column
+    private String title;
+    @Column(nullable = false,length = 2048)
     private String text;
     @Column(nullable = false)
     private LocalDate date;
