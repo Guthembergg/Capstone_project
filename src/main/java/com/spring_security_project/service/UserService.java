@@ -73,7 +73,12 @@ public class UserService {
 			throw new EntityNotFoundException("utente con quell id non esiste");
 	}
 	
-
+	public User findByUsername(String username) {
+		if (!repo.existsByUsername(username)) {
+			throw new EntityNotFoundException("Nessun utente trovato");
+		}
+		return repo.findByUsername(username).get();
+	}
 
 	public User editUtente(User u) {
 		if (!repo.existsById(u.getId())) {

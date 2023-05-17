@@ -53,11 +53,13 @@ public class DreamController {
 //			return new ResponseEntity<String>(e.getMessage(), HttpStatus.FOUND);
 //		}
 //	}
-	@PutMapping("/{id}")
+	@PutMapping("/{username}/{id}")
 	@PreAuthorize("isAuthenticated()")
-	public ResponseEntity<?> modificaSogno(@RequestBody Dream c, @PathVariable Long id){
-		c.setId(id);
-		try {return new ResponseEntity<Dream>(service.editDream(c), HttpStatus.CREATED);
+	public ResponseEntity<?> modificaSogno(@RequestBody Dream c, @PathVariable Long id, @PathVariable String username){
+		try {
+			c.setId(id);
+			c.setUser(serviceU.findByUsername(username));
+		return new ResponseEntity<Dream>(service.editDream(c), HttpStatus.CREATED);
 			
 		} catch (Exception e) {
 			return new ResponseEntity<String>(e.getMessage(), HttpStatus.FOUND);
