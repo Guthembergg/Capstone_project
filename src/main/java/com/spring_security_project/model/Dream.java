@@ -48,6 +48,8 @@ public class Dream {
     private LocalDate date;
     @Column
     private Double time;
+    @Column(length = 2048)
+    private String interpretation;
     @Column()
     @Enumerated(EnumType.STRING)
     private List<Emotions> emotions= new ArrayList<>();
