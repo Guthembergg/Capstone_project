@@ -9,9 +9,9 @@ import org.springframework.stereotype.Service;
 
 import com.spring_security_project.auth.entity.User;
 import com.spring_security_project.auth.repository.UserRepository;
-
+import com.spring_security_project.model.Alarm;
 import com.spring_security_project.model.Dream;
-
+import com.spring_security_project.repository.AlarmRepository;
 import com.spring_security_project.repository.DreamRepository;
 
 import jakarta.persistence.EntityNotFoundException;
@@ -23,7 +23,8 @@ public class UserService {
 	UserRepository repo;
 	@Autowired
 	DreamRepository repoD;
-
+	@Autowired
+	AlarmRepository repoA;
 	public List<User> findAllUsers() {
 
 		return repo.findAll();
@@ -73,6 +74,18 @@ public class UserService {
 			throw new EntityNotFoundException("utente con quell id non esiste");
 	}
 	
+	public Alarm associaAllarmeUtenteUsername(String username, Alarm alarm) {
+		
+		if (repo.existsByUsername(username)) {
+			User u= repo.findByUsername(username).get();
+			u.getAlarms().add(alarm);
+			alarm.setUser(u);
+			
+			
+			return repoA.save(alarm);
+		} else
+			throw new EntityNotFoundException("utente con quell id non esiste");
+	}
 	public User findByUsername(String username) {
 		if (!repo.existsByUsername(username)) {
 			throw new EntityNotFoundException("Nessun utente trovato");

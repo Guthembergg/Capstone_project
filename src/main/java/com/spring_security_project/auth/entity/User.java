@@ -11,7 +11,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-
+import com.spring_security_project.model.Alarm;
 import com.spring_security_project.model.Dream;
 
 
@@ -44,4 +44,6 @@ public class User {
     private Set<Role> roles = new HashSet<>();
     @OneToMany(cascade = CascadeType.MERGE, mappedBy = "user" )
     private List<Dream> dreams;
+    @OneToMany(cascade = CascadeType.MERGE, mappedBy = "user" )
+    private List<Alarm> alarms;
 }
