@@ -51,6 +51,8 @@ public class Dream {
     @Column(length = 2048)
     private String interpretation;
     @Column()
+    private String image;
+    @Column()
     @Enumerated(EnumType.STRING)
     private List<Emotions> emotions= new ArrayList<>();
     @Column()
