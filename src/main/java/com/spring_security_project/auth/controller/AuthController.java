@@ -37,11 +37,11 @@ UserRepository repo;
 	public ResponseEntity<JWTAuthResponse> login(@RequestBody LoginDto loginDto) {
 
 		String token = authService.login(loginDto);
-
+		Boolean subbed= repo.findByUsername(loginDto.getUsername()).get().getSubbed();
 		JWTAuthResponse jwtAuthResponse = new JWTAuthResponse();
 		jwtAuthResponse.setUsername(loginDto.getUsername());
 		jwtAuthResponse.setAccessToken(token);
-
+		jwtAuthResponse.setSubbed(subbed);
 		return ResponseEntity.ok(jwtAuthResponse);
 	}
 	

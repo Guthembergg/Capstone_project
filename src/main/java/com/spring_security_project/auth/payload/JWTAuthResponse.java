@@ -13,4 +13,5 @@ public class JWTAuthResponse {
 	private String username;
     private String accessToken;
     private String tokenType = "Bearer";
+    private Boolean subbed;
 }
