@@ -51,6 +51,15 @@ public class UserController {
 			return new ResponseEntity<String>(e.getMessage(), HttpStatus.FOUND);
 		}
 	}
+	@GetMapping("username/{username}")
+	@PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
+	public ResponseEntity<?> trovaUtentiUsername(@PathVariable String username){
+		try {
+			return new ResponseEntity<>(service.findByUsername(username), HttpStatus.OK);
+		} catch(Exception e) {
+			return new ResponseEntity<String>(e.getMessage(), HttpStatus.FOUND);
+		}
+	}
 	@PutMapping("/{id}")
 	@PreAuthorize("hasRole('ADMIN')or hasRole('USER') ")
 	public ResponseEntity<?> modificaUtente(@RequestBody User u, @PathVariable Long id){
